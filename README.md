@@ -1,1 +1,22 @@
-# Python-pySecretApp-Cryptography
+# PySecret Application
+
+# Description
+This application encrypt text safely without the need of a password.  
+It asks the user 7 personal questions and generates a secure password off of these questions.
+
+# Libraries needed to run app with Python
+Before running in Python, Libraries below need to be installed:  
+- $> `pip install argon2-cffi`
+- $> `pip install pynacl`
+
+# parameters.ini
+Optionally, this app accepts a 'parameters.ini' file on the root app directory with the parameters below:  
+
+```sh
+DEBUG_ON=false                      # debug messages on or off (default = false)
+SECRET_EXPIRATION_IN_SECONDS=300    # in how many seconds the secret expires (default = 300)
+RESULT_FILE_NAME=file.dta           # file name to save or read data from
+```
+
+# Executable
+TODO: Make the python file executable and self-contained.
