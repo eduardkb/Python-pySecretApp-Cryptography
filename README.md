@@ -19,4 +19,9 @@ RESULT_FILE_NAME=file.dta           # file name to save or read data from
 ```
 
 # Executable
-TODO: Make the python file executable and self-contained.
+Temp Placeholder
+
+# TODO List
+- create a question that is a phrase to create entropy (no dictionary guessable)
+- change code to not truncate answers. (delete normalize_string and let Argon2 do the hashing.) 
+- Make the python file executable and self-contained.
