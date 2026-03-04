@@ -18,7 +18,7 @@ Optionally, this app accepts a 'parameters.ini' file on the root app directory w
 ```sh
 DEBUG_ON=false                      # debug messages on or off (default = false)
 SECRET_EXPIRATION_IN_SECONDS=300    # in how many seconds the secret expires (default = 300)
-RESULT_FILE_PATH=                   # default = empty (file on app's root directory)
+RESULT_FILE_PATH=                   # default = empty (file on app's root directory). Sample: 'C:\Users\john'
 RESULT_FILE_NAME=file.dta           # file name to save or read data from
 ```
 
