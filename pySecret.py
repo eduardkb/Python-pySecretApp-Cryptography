@@ -43,6 +43,7 @@ NONCE_LEN = crypto_aead_xchacha20poly1305_ietf_NPUBBYTES  # Required nonce size
 # ==============================
 SECRET_EXPIRATION_IN_SECONDS = 300
 DEBUG_ON = False
+RESULT_FILE_PATH = ""
 RESULT_FILE_NAME = "data.dta"
 
 
@@ -73,6 +74,7 @@ def read_parameters():
     global SECRET_EXPIRATION_IN_SECONDS
     global DEBUG_ON
     global RESULT_FILE_NAME
+    global RESULT_FILE_PATH
 
     if not os.path.exists("parameters.ini"):
         return
@@ -103,6 +105,10 @@ def read_parameters():
         elif key == "DEBUG_ON":
             if value.lower() in ("true", "false"):
                 DEBUG_ON = value.lower() == "true"
+
+        elif key == "RESULT_FILE_PATH":
+            if value:
+                RESULT_FILE_PATH = value
 
         elif key == "RESULT_FILE_NAME":
             if value:
@@ -250,11 +256,22 @@ def encrypt_and_write(plaintext: str):
         aad=None,
         nonce=nonce,
         key=key
-    )
-
-    with open(RESULT_FILE_NAME, "wb") as f:
+    )    
+        
+    fullFilePath = getFullPath(RESULT_FILE_NAME, RESULT_FILE_PATH)
+    with open(fullFilePath, "wb") as f:
         f.write(salt + nonce + ciphertext_with_tag)
 
+def getFullPath(RESULT_FILE_NAME, RESULT_FILE_PATH):
+    if RESULT_FILE_PATH == "":
+        return RESULT_FILE_NAME
+    else:
+        # check if RESULT_FILE_PATH last character is '/' or '\'
+        if RESULT_FILE_PATH[-1] in ['/', '\\']:
+            return RESULT_FILE_PATH + RESULT_FILE_NAME
+        else:
+            # append a backslash '\' before the file name
+            return RESULT_FILE_PATH + '\\' + RESULT_FILE_NAME
 
 def decrypt_existing_file():
     """
@@ -262,10 +279,12 @@ def decrypt_existing_file():
     Returns plaintext as string or empty string if file does not exist.
     Raises exception if decryption fails.
     """
-    if not os.path.exists(RESULT_FILE_NAME):
+
+    fullFilePath = getFullPath(RESULT_FILE_NAME, RESULT_FILE_PATH)
+    if not os.path.exists(fullFilePath):
         return ""
 
-    with open(RESULT_FILE_NAME, "rb") as f:
+    with open(fullFilePath, "rb") as f:
         content = f.read()
 
     if len(content) < SALT_LEN + NONCE_LEN + 16:
@@ -465,12 +484,16 @@ def write_details():
     global SECRET_EXPIRATION_IN_SECONDS
     global DEBUG_ON
     global RESULT_FILE_NAME
+    global RESULT_FILE_PATH
+    fullFilePath = getFullPath(RESULT_FILE_NAME, RESULT_FILE_PATH)
 
     clear_screen()    
     print("Current configuration values (from parameters.ini or defaults):")
     print("     - SECRET_EXPIRATION_IN_SECONDS =", SECRET_EXPIRATION_IN_SECONDS)
     print("     - DEBUG_ON =", DEBUG_ON)
+    print("     - RESULT_FILE_PATH =", RESULT_FILE_PATH)    
     print("     - RESULT_FILE_NAME =", RESULT_FILE_NAME)    
+    print("     - Full File Path   =", fullFilePath)    
     pause()
 
 
