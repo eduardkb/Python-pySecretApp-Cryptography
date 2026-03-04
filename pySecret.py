@@ -324,10 +324,10 @@ def set_password():
 
     labels = [
         "Your favorite food",
-        "Name of your first pet",
-        "In which city were you born",
+        "Name of your first pet",        
         "Favorite musical instrument",
         "Favorite writer (FirstnameLastname)",
+        "Favorite phrase (Initials)",
         "Mother's date of birth (ddmmyyyy)",
         "Date of first employment (ddmmyyyy)"
     ]
@@ -349,8 +349,9 @@ def set_password():
 
     seconds = SECRET_EXPIRATION_IN_SECONDS
 
-    print("\nResult:")
+    
     if DEBUG_ON:
+        print("\nDebug Result:")
         print("\n--- Secret Expiration ---\n")
         print("Variable SECRET_EXPIRATION_IN_SECONDS:", seconds)
         print("\n")

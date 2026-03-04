@@ -1,11 +1,11 @@
 # PySecret Application
 
 # Description
-This application encrypt text safely without the need of a password.  
+This application encrypt text without the need of a password.  
 It asks the user 7 personal questions and generates a secure password off of these questions.  
 > [!CAUTION]
-> This application does not provide the same level of security as standard text encryption methods. 
-> Use it at your own risk.
+> This application does not provide the same level of security as standard text encryption methods.  
+> Use it at your own risk.  
 
 # Libraries needed to run app with Python
 Before running in Python, Libraries below need to be installed:  
