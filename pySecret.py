@@ -57,14 +57,12 @@ def clear_screen():
     """
     os.system("cls" if os.name == "nt" else "clear")
 
-
 def pause():
     """
     Displays a separator and waits for user confirmation.
     """
     print("-" * 80)
     input("\nPress any key to continue...")
-
 
 def read_parameters():
     """
@@ -114,7 +112,6 @@ def read_parameters():
             if value:
                 RESULT_FILE_NAME = value
 
-
 def secret_countdown(seconds):
     """
     Automatically clears the in-memory secret
@@ -123,7 +120,6 @@ def secret_countdown(seconds):
     global globalSecret
     time.sleep(seconds)
     globalSecret = None
-
 
 def normalize_string(param: str) -> str:
     """
@@ -145,7 +141,6 @@ def normalize_string(param: str) -> str:
         result.append(charset[index])
 
     return "".join(result)
-
 
 def calculatePassword(quest1, quest2, quest3, quest4, quest5, date1, date2):
     """
@@ -201,13 +196,11 @@ def calculatePassword(quest1, quest2, quest3, quest4, quest5, date1, date2):
 
     return combPassword
 
-
 def generate_salt(length: int = 16) -> bytes:
     """
     Generates a cryptographically secure random salt.
     """
     return secrets.token_bytes(length)
-
 
 def derive_key(password: str, salt: bytes) -> bytes:
     """
@@ -230,7 +223,6 @@ def derive_key(password: str, salt: bytes) -> bytes:
         hash_len=32,
         type=Type.ID
     )
-
 
 def encrypt_and_write(plaintext: str):
     """
@@ -263,15 +255,9 @@ def encrypt_and_write(plaintext: str):
         f.write(salt + nonce + ciphertext_with_tag)
 
 def getFullPath(RESULT_FILE_NAME, RESULT_FILE_PATH):
-    if RESULT_FILE_PATH == "":
+    if not RESULT_FILE_PATH:
         return RESULT_FILE_NAME
-    else:
-        # check if RESULT_FILE_PATH last character is '/' or '\'
-        if RESULT_FILE_PATH[-1] in ['/', '\\']:
-            return RESULT_FILE_PATH + RESULT_FILE_NAME
-        else:
-            # append a backslash '\' before the file name
-            return RESULT_FILE_PATH + '\\' + RESULT_FILE_NAME
+    return os.path.join(RESULT_FILE_PATH, RESULT_FILE_NAME)
 
 def decrypt_existing_file():
     """
@@ -386,7 +372,6 @@ def set_password():
     print("     - Password successfully generated")
     pause()
 
-
 def read_file():
     """
     Decrypts and displays stored entries if a secret is active.
@@ -424,7 +409,6 @@ def read_file():
         print("        - The file has been modified")
         print("        - The file is corrupted")
         pause()
-
 
 def write_file():
     """
@@ -476,7 +460,6 @@ def write_file():
         print("        - The file is corrupted")
         pause()
 
-
 def write_details():
     """
     Displays currently active configuration values.
@@ -495,7 +478,6 @@ def write_details():
     print("     - RESULT_FILE_NAME =", RESULT_FILE_NAME)    
     print("     - Full File Path   =", fullFilePath)    
     pause()
-
 
 def main_menu():
     """
@@ -531,7 +513,6 @@ def main_menu():
             clear_screen()
             print("Invalid Option.")
             time.sleep(1)
-
 
 if __name__ == "__main__":
     main_menu()
