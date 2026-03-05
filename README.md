@@ -23,9 +23,17 @@ RESULT_FILE_NAME=file.dta           # file name to save or read data from
 ```
 
 # Executable
-Temp Placeholder
+To generate executable file (obs: each SO's executable must be generated on that SO.):  
+- install `pip install pyinstaller`
+- if installed on user profile (not on venv):
+```powershell
+[Environment]::SetEnvironmentVariable(
+  "PATH",
+  $env:PATH + ";$env:APPDATA\Python\Python314\Scripts",
+  "User")  
+```
+- close and open powershell again
+- generate executable `pyinstaller --onefile --name pySecret pySecret.py`
 
 # TODO List
-- create a question that is a phrase to create entropy (no dictionary guessable)
-- change code to not truncate answers. (delete normalize_string and let Argon2 do the hashing.) 
 - Make the python file executable and self-contained.

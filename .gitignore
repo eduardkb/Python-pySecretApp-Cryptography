@@ -1,1 +1,4 @@
 *.dta
+*.spec
+*\build
+*\dist
